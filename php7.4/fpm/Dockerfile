@@ -49,6 +49,14 @@ RUN ls -la /usr/local/etc/php/conf.d/ \
 
 RUN docker-php-ext-enable v8js
 FROM php:7.4-fpm
+
+ARG VCS_REF
+ARG BUILD_DATE
+LABEL  org.label-schema.build-date=$BUILD_DATE \
+        org.label-schema.name="PHP 7.4-FPM with V8JS" \
+        org.label-schema.vcs-ref=$VCS_REF \
+        org.label-schema.vcs-url="https://github.com/nkahoang/docker-v8js-php"
+            
 COPY --from=BASE_PHP /opt /opt
 COPY --from=BASE_PHP /usr/local/etc/php/conf.d/docker-php-ext-v8js.ini /usr/local/etc/php/conf.d/
 COPY --from=BASE_PHP /usr/local/lib/php/extensions/no-debug-non-zts-20190902 /usr/local/lib/php/extensions/no-debug-non-zts-20190902

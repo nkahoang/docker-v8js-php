@@ -1,0 +1,34 @@
+version: "3.6"
+services:
+  wp:
+    image: nkahoang/docker-v8js-php:wordpress5-php7.4-fpm-v8js7.9
+    container_name: wp_wp
+    volumes:
+      - "./etc/php/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro"
+      - "./etc/php/php.ini:/usr/local/etc/php/php.ini"
+      # the following path must be similar between wp and nginx containers
+      - "./wp:/var/www/html/"
+  db:
+    image: mariadb
+    container_name: wp_db
+    volumes:
+      # path to store DB here
+      - "./db/mysql:/var/lib/mysql"
+    environment:
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: wp
+      MYSQL_DATABASE: wp
+      MYSQL_ROOT_PASSWORD: wp
+  web:
+    image: nginx
+    depends_on:
+      - wp
+      - db
+    container_name: wp_web
+    volumes:
+      - ./etc/nginx:/etc/nginx/conf.d:ro
+      - "./wp:/var/www/html:ro"
+      - ./logs/nginx:/var/log/nginx:delegated
+    ports:
+      # this will be the main port to access the site
+      - 8888:80
