@@ -39,7 +39,7 @@ RUN cd /tmp \
     && git clone https://github.com/phpv8/v8js.git \
     && cd v8js \
     && phpize \
-    && ./configure --with-v8js=/opt/v8 LDFLAGS="-lstdc++" \
+    && ./configure --with-v8js=/opt/v8 LDFLAGS="-lstdc++" CPPFLAGS="-DV8_COMPRESS_POINTERS" \
     && make \
     && make test \
     && make install

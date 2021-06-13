@@ -2,7 +2,7 @@
 
 The repo available for the official debian-based PHP-FPM and official Wordpress-based PHP-FPM. This uses multi-stage docker build to minimise the image.
 
-Currently supporting V8 version 7.9 (as V8JS is not compatible with V8 v8+ yet) on PHP 7.3/7.4.
+Now supporting V8 version 8.9 on PHP 7.3/7.4. PHP 8.0 is not yet supported with current [phpv8](https://github.com/phpv8/) project.
 
 Docker Hub: https://hub.docker.com/r/nkahoang/docker-v8js-php
 

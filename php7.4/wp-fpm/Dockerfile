@@ -41,7 +41,7 @@ RUN cd /tmp \
     && cd v8js \
     && git checkout php7 && git pull \
     && phpize \
-    && ./configure --with-v8js=/opt/v8 LDFLAGS="-lstdc++" \
+    && ./configure --with-v8js=/opt/v8 LDFLAGS="-lstdc++" CPPFLAGS="-DV8_COMPRESS_POINTERS" \
     && make \
     && make test \
     && make install
