@@ -1,5 +1,5 @@
 FROM wordpress:5-php7.4-fpm as BASE_PHP
-ENV V8_VERSION=7.9.317.34
+ENV V8_VERSION=8.9.255.25
 
 RUN apt-get update -y --fix-missing && apt-get upgrade -y;
 
@@ -12,8 +12,9 @@ RUN apt-get install -y --no-install-recommends \
     libglib2.0-dev \
     libxml2 \
     python \
-    patchelf \
-    && cd /tmp \
+    patchelf
+
+RUN cd /tmp \
     \
     && git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git --progress --verbose \
     && export PATH="$PATH:/tmp/depot_tools" \
@@ -38,6 +39,7 @@ RUN export PATH="$PATH:/tmp/depot_tools" \
 RUN cd /tmp \
     && git clone https://github.com/phpv8/v8js.git \
     && cd v8js \
+    && git checkout php7 && git pull \
     && phpize \
     && ./configure --with-v8js=/opt/v8 LDFLAGS="-lstdc++" \
     && make \

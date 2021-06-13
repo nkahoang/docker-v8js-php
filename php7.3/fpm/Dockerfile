@@ -1,5 +1,5 @@
 FROM php:7.3-fpm as BASE_PHP
-ENV V8_VERSION=7.9.317.34
+ENV V8_VERSION=8.9.255.25
 
 RUN apt-get update -y --fix-missing && apt-get upgrade -y;
 
